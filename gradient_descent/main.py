@@ -21,7 +21,7 @@ def cone_f(x_):
 def grad_f(x_):
     center_ = np.array([5, 5])                      # center of cone
     r_ = np.sqrt(sum((x_ - center_)**2))            # radius from center to point x_
-    if 1e-10 <= r_:                                  # due to floating point precision in python: if not at the origin, return gradient
+    if 1e-10 <= r_:                                 # due to floating point precision in python: if not at the origin, return gradient
         grad_ = (x_ - center_)/r_                   # gradient of cone function away from the origin
         return grad_
     else:
