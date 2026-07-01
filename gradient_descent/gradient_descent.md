@@ -1,14 +1,3 @@
-# Proposal
-
-## Function Name
-compute_score
-
-## Domain
-Math
-
-## Sub-domain
-Mathematical Optimization and Nonlinear Dynamical Systems
-
 ## Function Description
 Evaluates a continuous two-dimensional input coordinate space using an iterative, deterministic numeric procedure. The framework integrates a trajectory-dependent state machine with a parallel independent spatial orientation reduction to return a single integrated scalar performance metric.
 
@@ -103,19 +92,3 @@ $$\Theta =\left(2\pi + s\theta\right)\bmod (2\pi), \quad \Theta \in [0,2\pi).$$
 
 ## Limitations
 - The current method employs a fixed base learning rate $\alpha$, which can lead to convergence failures when starting from initial states located far from the optimum. In such cases, the trajectory may stall, resulting in a final state that remains significantly distant from the target. This limitation can be effectively addressed by making the learning rate radius-dependent. For instance, defining an adaptive learning rate as $\alpha' = \frac{1}{k}\bigl(\alpha + \tanh(r)\bigr),$ where $r = ‖s - c‖_2$ is the Euclidean distance from the current state to the cone center and $1 < k$ is a scaling hyperparameter, allows for larger steps when far from the optimum and naturally smaller steps near the target.
-
-## Citations
-1. Boyd, S., & Mutapcic, A. (2008). "Subgradient Methods." *Stanford University Lecture Notes*.
-2. Nesterov, Y. (2018). *Lectures on Convex Optimization*. Springer.
-3. Polyak, B. T. (1987). *Introduction to Optimization*. Optimization Software.
-4. Marsden, J. E., & Tromba, A. J. (2012). *Vector Calculus*. W. H. Freeman.
-
-## Edge Cases
-- **Absolute Target Center:** Initializing at `state_x = 5.0`, `state_y = 5.0`, `scale_ = 0.05`, `max_steps = 5000`. Path A terminates on step 0, giving $v_T = -10.0$. Path B calculates a zero direction vector, resulting in an angle component of $\Theta = 0.0$. Expected output: `{"score_": -10.0000}`.
-- **Asymmetric Convergence & Oscillation Overshoot:** Initializing at `state_x = 5.1`, `state_y = 5.1`, `scale_ = 1.0`, `max_steps = 5000`. Path A overshoots the origin on step 1, triggering immediate early termination via directional vector inversion ($v_T = -9.1414$). Path B calculates the initial quadrant angle from the raw inputs ($\Theta = 0.7854$). Expected output: `{"score_": -8.3560}`.
-- **Point Symmetry Invariance Check:** Comparing `state_x = 3.0`, `state_y = 3.0` vs. `state_x = 7.0`, `state_y = 7.0` with `scale_ = 0.05`, `max_steps = 5000`. Path A yields an identical matching trajectory count because Euclidean distance metrics are perfectly symmetric around $c=[5.0, 5.0]$. However, Path B calculates completely different angular orientation profiles ($\Theta_1 = 3.9270$ vs. $\Theta_2 = 0.7854$), isolating Path B from Path A. Expected output (for `3.0, 3.0`): `{"score_": -6.0514}`.
-- **Small Scale Slow-Walk Tracker:** Initializing far out at the extreme grid edge `state_x = -100.0`, `state_y = -100.0` with the absolute minimum step scale `scale_ = 0.01` and `max_steps = 5000`. The system slowly steps toward the center but runs out of steps long before reaching the core, testing the loop's structural deceleration patterns. Expected output: `{"score_": 92.4194}`.
-- **Maximum Grid Coordinate Boundary:** Initializing at the maximum allowable coordinate corner `state_x = -100.0`, `state_y = -100.0` with a large step scale of `scale_ = 1.0` and `max_steps = 5000`. Verifies system precision behavior across the maximum continuous path length allowed by the schema bounds. Expected output: `{"score_": -5.5654}`.
-
-## What Makes This Hard?
-This task employs a non-sequential, two-path architectural pipeline. Path A computes an iterative state transformation trajectory, while Path B independently extracts a raw coordinate angular direction vector at initialization. Because the final scalar score combines both distinct mathematical properties ($v_T + \theta$), an AI model cannot infer variables through isolated input-output mapping. Varying `scale_` affects only the loop convergence path, while changing coordinates at a fixed distance isolates Path B's orientation-sensitive angular calculation, forcing the model to systematically decouple both distinct algorithms to succeed.
