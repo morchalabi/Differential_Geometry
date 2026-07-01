@@ -9,3 +9,5 @@ Current covered topics:
 - 4th-order tensor (multilinear map)
 - 2nd-order Taylor approximation of Rosenbrock function
 - Projection transport and Gaussian curvature
+
+Note: for proper visualization of mathematical expressions, open markdown files in VS Code.
