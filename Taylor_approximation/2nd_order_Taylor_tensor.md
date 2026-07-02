@@ -42,13 +42,13 @@ $$
 f(x+\mathbf{h}) = f(x)+\mathbf{J}(x)\mathbf{h}+\frac{1}{2}\mathbf{h}^T\mathbf{H}(x)\mathbf{h}+o(‖\mathbf{h}‖^2),
 $$
 
-where $\mathbf{J}(x) = \left[\frac{\partial f}{\partial x_i}(x)\right]_{i=1}^{n}$ and $\mathbf{H}(x) = \left[\frac{\partial^2 f}{\partial x_i \partial x_j}(x)\right]_{i,j=1}^{n}$.
+where $\mathbf{J}(x) = [\frac{\partial f}{\partial x_i}(x)]_{i=1}^{n}$ and $\mathbf{H}(x) = [\frac{\partial^2 f}{\partial x_i \partial x_j}(x)]_{i,j=1}^{n}$.
 
 ### Path A: First-Order Taylor Approximation
 
 Let $x = (x^1, x^2)$, then the **Rosenbrock function** is given by
 $$
-f(x) = (1 - x^1)^2+ 100\left(x^2 - (x^1)^2\right)^2.
+f(x) = (1 - x^1)^2+ 100(x^2 - (x^1)^2)^2.
 $$
 
 The graph of the function is the smooth surface
@@ -61,7 +61,7 @@ which possesses a unique global minimum at $p_0 = (1, 1, 0)$.
 
 The **Jacobian** of $f$ is
 $$
-\mathbf{J}(x) = \begin{bmatrix} -2(1 - x^1) - 400x^1 \left(x^2 - (x^1)^2\right) & 200\left(x^2 - (x^1)^2\right) \end{bmatrix},
+\mathbf{J}(x) = \begin{bmatrix} -2(1 - x^1) - 400x^1 (x^2 - (x^1)^2) & 200(x^2 - (x^1)^2) \end{bmatrix},
 $$
 
 and its **Hessian** is
@@ -101,7 +101,7 @@ The final scalar value returned is `score` $ = P_{A} + \alpha P_{B}$ which uses 
    - 3.2 Extract the fractional part of $p$ and store it in a vector: $\mathbf{h} = p-x. \\$
       Now $x$ is an integer point and $\mathbf{h}$ is its displacement vector.
 
-2. Define the smooth quartic polynomial $ f(x) = (1 - x^1)^2+ 100\left(x^2 - (x^1)^2\right)^2. \\$
+2. Define the smooth quartic polynomial $ f(x) = (1 - x^1)^2+ 100(x^2 - (x^1)^2)^2. \\$
 
 3. Find the tensor fields $Df(x) = \mathbf{J}(x)$ and $D^2f(x)= \mathbf{H}(x)$.
 
