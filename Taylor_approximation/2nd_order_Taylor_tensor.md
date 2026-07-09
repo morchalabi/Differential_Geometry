@@ -47,24 +47,29 @@ where $\mathbf{J}(x) = [\frac{\partial f}{\partial x_i}(x)]_{i=1}^{n}$ and $\mat
 ### Path A: First-Order Taylor Approximation
 
 Let $x = (x^1, x^2)$, then the **Rosenbrock function** is given by
+
 $$
 f(x) = (1 - x^1)^2+ 100(x^2 - (x^1)^2)^2.
 $$
 
 The graph of the function is the smooth surface
+
 $$
-S = \bigl\{(x^1, x^2, z) \in \mathbb{R}^3 : z = f(x^1, x^2)\bigr\},
+S = \\{(x^1, x^2, z) \in \mathbb{R}^3 : z = f(x^1, x^2)\\},
 $$
+
 which possesses a unique global minimum at $p_0 = (1, 1, 0)$. 
 
 (NOTE: This function was introduced by Howard H. Rosenbrock as a benchmark surface for optimization algorithms; see citations.)
 
 The **Jacobian** of $f$ is
+
 $$
 \mathbf{J}(x) = \begin{bmatrix} -2(1 - x^1) - 400x^1 (x^2 - (x^1)^2) & 200(x^2 - (x^1)^2) \end{bmatrix},
 $$
 
 and its **Hessian** is
+
 $$
 \mathbf{H}(x) = \begin{bmatrix} 1200(x^1)^2 - 400x^2 + 2 & -400x^1 \\
                                 -400x^1                  & 200
